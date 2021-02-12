@@ -293,6 +293,8 @@ MonoBehaviour:
   remoteLayerName: RemotePlayer
   dontDrawLayerName: DontDraw
   playerGraphics: {fileID: 3789790307071910996}
+  weaponGFX: {fileID: 218048235554440627}
+  weaponLayerName: Weapon1
   playerUIPrefab: {fileID: 5768635962390609770, guid: 0d64f94517fc6cf489e6e5b02751924f, type: 3}
 --- !u!114 &3789790307071910937
 MonoBehaviour:
@@ -444,8 +446,6 @@ MonoBehaviour:
     name: AK-47
     damage: 40
     range: 100
-  weaponGFX: {fileID: 218048235554440627}
-  weaponLayerName: Weapon1
   cam: {fileID: 3789790307071910974}
   mask:
     serializedVersion: 2

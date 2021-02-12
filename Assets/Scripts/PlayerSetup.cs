@@ -15,6 +15,13 @@ public class PlayerSetup : NetworkBehaviour
     [SerializeField]
     GameObject playerGraphics;
 
+    //
+    [SerializeField]
+    private GameObject weaponGFX;
+    [SerializeField]
+    private string weaponLayerName = "Weapon1";
+    //
+
     [SerializeField]
     GameObject playerUIPrefab;
     private GameObject playerUIInstance;
@@ -45,8 +52,9 @@ public class PlayerSetup : NetworkBehaviour
             // create PlayerUI
             playerUIInstance = Instantiate(playerUIPrefab);
             playerUIInstance.name = playerUIPrefab.name;
-
-
+            /////
+            SetLayerRecursively(weaponGFX, LayerMask.NameToLayer(weaponLayerName));
+            /////
         }
 
         GetComponent<Player>().Setup();

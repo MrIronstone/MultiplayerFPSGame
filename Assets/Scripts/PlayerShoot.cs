@@ -9,11 +9,12 @@ public class PlayerShoot : NetworkBehaviour
 
     [SerializeField]
     private PlayerWeapon weapon;
+    /*
     [SerializeField]
     private GameObject weaponGFX;
     [SerializeField]
     private string weaponLayerName = "Weapon1";
-
+    */
 
     [SerializeField]
     private Camera cam;
