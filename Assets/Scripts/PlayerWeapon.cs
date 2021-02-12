@@ -11,4 +11,10 @@ public class PlayerWeapon
     public float range = 100f;
 
 
+    public float fireRate = 0f;
+
+    [SerializeField]
+    public GameObject graphics;
+
+
 }
