@@ -16,6 +16,7 @@ public class WeaponManager : NetworkBehaviour
 
 
     private PlayerWeapon currentWeapon;
+    private WeaponGraphics currentGraphics;
 
 
     void Start()
@@ -28,6 +29,11 @@ public class WeaponManager : NetworkBehaviour
         return currentWeapon; 
     }
 
+    public WeaponGraphics GetCurrentGraphics()
+    {
+        return currentGraphics;
+    }
+
     void EquipWeapon ( PlayerWeapon _weapon)
     {
         currentWeapon = _weapon;
@@ -35,17 +41,14 @@ public class WeaponManager : NetworkBehaviour
         GameObject _weaponIns = (GameObject) Instantiate(_weapon.graphics,weaponHolder.position, weaponHolder.rotation);
         _weaponIns.transform.SetParent(weaponHolder);
 
+        currentGraphics = _weaponIns.GetComponent<WeaponGraphics>();
+
+        if (currentGraphics == null)
+            Debug.LogError("No WeaponGraphics Component on the Weapon Object: " + _weapon.name);
+
         if (isLocalPlayer)
-            SetLayerRecursivelyWeapon(_weaponIns, LayerMask.NameToLayer(weaponLayerName));
+            Util.SetLayerRecursively(_weaponIns, LayerMask.NameToLayer(weaponLayerName));
     }
 
-    void SetLayerRecursivelyWeapon(GameObject obj, int newLayer)
-    {
-        obj.layer = newLayer;
 
-        foreach (Transform child in obj.transform)
-        {
-            SetLayerRecursivelyWeapon(child.gameObject, newLayer);
-        }
-    }
 }
