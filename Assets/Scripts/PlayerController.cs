@@ -14,7 +14,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float thrusterForce = 1000f;
 
-    
+    [SerializeField]
+    private float thrusterFuelBurnSpeed = 1f;
+    [SerializeField]
+    private float thrusterFuelRegenSpeed = 0.3f;
+    private float thrusterFuelAmount = 1f;
+
+    public float GetThrusterFuelAmount()
+    {
+        return thrusterFuelAmount;
+    }
 
 
     [Header("Spring Settings")]
@@ -77,15 +86,21 @@ public class PlayerController : MonoBehaviour
 
         // Calculate the thrusterforce based on player input
         Vector3 _thrusterForce = Vector3.zero;
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") && thrusterFuelAmount > 0f )
         {
+            thrusterFuelAmount -= thrusterFuelBurnSpeed * Time.deltaTime;
+
             _thrusterForce = Vector3.up * thrusterForce;
             SetJointSettings(0f);
         }
         else
         {
+            thrusterFuelAmount += thrusterFuelRegenSpeed * Time.deltaTime;
+
             SetJointSettings(jointSpring);
         }
+
+        thrusterFuelAmount = Mathf.Clamp(thrusterFuelAmount, 0f, 1f);
 
         // Apply the Thruster Force
         motor.ApplyThruster(_thrusterForce);

@@ -251,6 +251,8 @@ MonoBehaviour:
   speed: 5
   lookSensetivity: 15
   thrusterForce: 1000
+  thrusterFuelBurnSpeed: 1
+  thrusterFuelRegenSpeed: 0.3
   jointSpring: 20
   jointMaxForce: 40
 --- !u!114 &3789790307071910934

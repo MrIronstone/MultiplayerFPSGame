@@ -2,6 +2,7 @@
 using Mirror;
 
 [RequireComponent(typeof(Player))]
+[RequireComponent(typeof(PlayerController))]
 public class PlayerSetup : NetworkBehaviour
 {
     [SerializeField]
@@ -45,7 +46,15 @@ public class PlayerSetup : NetworkBehaviour
             // create PlayerUI
             playerUIInstance = Instantiate(playerUIPrefab);
             playerUIInstance.name = playerUIPrefab.name;
-            
+
+            // Configure UI
+            PlayerUserInterface ui = playerUIInstance.GetComponent<PlayerUserInterface>();
+            if ( ui == null)
+            {
+                Debug.LogError("No PlayerUserInterface component on PlayerUserInterface prefab");
+            }
+
+            ui.SetController(GetComponent<PlayerController>());
         }
 
         GetComponent<Player>().Setup();
