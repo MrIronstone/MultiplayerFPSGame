@@ -49,7 +49,7 @@ public class PlayerMotor : MonoBehaviour
     }
 
     // run every physics iterartion
-    void FixedUpdate ()
+    void Update ()
     {
         PerformMovement();
         PerformRotation();
@@ -59,12 +59,12 @@ public class PlayerMotor : MonoBehaviour
     {
         if( velocity != Vector3.zero)
         {
-            rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + velocity * Time.deltaTime);
         }
 
         if ( thrusterForce != Vector3.zero)
         {
-            rb.AddForce(thrusterForce * Time.fixedDeltaTime, ForceMode.Acceleration );
+            rb.AddForce(thrusterForce * Time.deltaTime, ForceMode.Acceleration );
         }
     }
 

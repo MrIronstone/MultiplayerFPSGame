@@ -81,7 +81,7 @@ namespace Mirror
         /// fewer transport calls give us significantly better performance/scale.
         /// if batch interval is 0, then we only batch until the Update() call
         /// </summary>
-        [Tooltip("Server can batch messages up to Transport.GetMaxPacketSize to significantly reduce transport calls and improve performance/scale.\nIf batch interval is 0, then we only batch until the Update() call. Otherwise we batch until interval elapsed (note that this increases latency).")]
+        [Tooltip("Server can batch messages up to Transport.GetMaxPacketSize to significantly reduce transport calls and improve performance/scale./nIf batch interval is 0, then we only batch until the Update() call. Otherwise we batch until interval elapsed (note that this increases latency).")]
         public float serverBatchInterval = 0;
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Mirror
         /// </summary>
         [FormerlySerializedAs("m_MaxConnections")]
         [Tooltip("Maximum number of concurrent connections.")]
-        public int maxConnections = 100;
+        public int maxConnections = 4;
 
         // This value is passed to NetworkServer in SetupServer
         /// <summary>
@@ -842,7 +842,7 @@ namespace Mirror
 
         /// <summary>
         /// This causes the server to switch scenes and sets the networkSceneName.
-        /// <para>Clients that connect to this server will automatically switch to this scene. This is called automatically if onlineScene or offlineScene are set, but it can be called from user code to switch scenes again while the game is in progress. This automatically sets clients to be not-ready during the change and ready again to participate in the new scene.</para>
+        /// <para>Clients that connect to this server will automatically switch to this scene. This is called autmatically if onlineScene or offlineScene are set, but it can be called from user code to switch scenes again while the game is in progress. This automatically sets clients to be not-ready during the change and ready again to participate in the new scene.</para>
         /// </summary>
         /// <param name="newSceneName"></param>
         public virtual void ServerChangeScene(string newSceneName)
@@ -1107,7 +1107,7 @@ namespace Mirror
         public static int startPositionIndex;
 
         /// <summary>
-        /// List of transforms populated by NetworkStartPosition components found in the scene.
+        /// List of transforms populted by NetworkStartPosition components found in the scene.
         /// </summary>
         public static List<Transform> startPositions = new List<Transform>();
 

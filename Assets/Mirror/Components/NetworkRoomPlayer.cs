@@ -49,7 +49,7 @@ namespace Mirror
             {
                 // NetworkRoomPlayer object must be set to DontDestroyOnLoad along with NetworkRoomManager
                 // in server and all clients, otherwise it will be respawned in the game scene which would
-                // have undesirable effects.
+                // have undesireable effects.
                 if (room.dontDestroyOnLoad)
                     DontDestroyOnLoad(gameObject);
 

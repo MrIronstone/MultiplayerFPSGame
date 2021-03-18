@@ -18,12 +18,15 @@ public class PlayerSetup : NetworkBehaviour
 
     [SerializeField]
     GameObject playerUIPrefab;
-    private GameObject playerUIInstance;
 
-    Camera sceneCam;
+    [HideInInspector]
+    public GameObject playerUIInstance;
+
 
     void Start()
     {
+        // Disable components that should be
+        // actibe on the player that we control
         if (!isLocalPlayer)
         {
             for (int i = 0; i < componentsToDisable.Length; i++)
@@ -34,11 +37,7 @@ public class PlayerSetup : NetworkBehaviour
         }
         else
         {
-            sceneCam = Camera.main;
-            if (sceneCam != null)
-            {
-                sceneCam.gameObject.SetActive(false);
-            }
+            
 
             // Disable graphics for local player
             SetLayerRecursively(playerGraphics, LayerMask.NameToLayer(dontDrawLayerName));
@@ -55,9 +54,10 @@ public class PlayerSetup : NetworkBehaviour
             }
 
             ui.SetController(GetComponent<PlayerController>());
+            GetComponent<Player>().SetupPlayer();
         }
 
-        GetComponent<Player>().Setup();
+        
     }
 
     void SetLayerRecursively ( GameObject obj, int newLayer)
@@ -99,11 +99,10 @@ public class PlayerSetup : NetworkBehaviour
     {
         Destroy(playerUIInstance);
 
-        if (sceneCam != null)
+        if (isLocalPlayer)
         {
-            sceneCam.gameObject.SetActive(true);
+            GameManager.instance.SetSceneCameraAcive(true);
         }
-
         GameManager.UnRegisterPlayer(transform.name); 
     }
 

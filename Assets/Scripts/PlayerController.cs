@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
         return thrusterFuelAmount;
     }
 
+    [SerializeField]
+    private LayerMask environmentMask;
 
     [Header("Spring Settings")]
     [SerializeField]
@@ -49,6 +51,22 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+        // Setting target position for spring
+        // This makes the phyics act right when it comes to
+        // applying gravity when flying over objects
+        
+        RaycastHit _hit;
+        if ( Physics.Raycast (transform.position, Vector3.down,out _hit, 100f, environmentMask))
+        {
+            joint.targetPosition = new Vector3(0f, -_hit.point.y, 0f);
+        }
+        else
+        {
+            joint.targetPosition = new Vector3(0f, 0f, 0f);
+        }
+        
+
         // calculate movement velocity as a 3d vector
         float _xMove = Input.GetAxis("Horizontal"); // -1 to 1
         float _zMove = Input.GetAxis("Vertical");   // -1 to 1
@@ -89,9 +107,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Jump") && thrusterFuelAmount > 0f )
         {
             thrusterFuelAmount -= thrusterFuelBurnSpeed * Time.deltaTime;
+            
+            if( thrusterFuelAmount >= 0.01f)
+            {
+                _thrusterForce = Vector3.up * thrusterForce;
+                SetJointSettings(0f);
+            }
 
-            _thrusterForce = Vector3.up * thrusterForce;
-            SetJointSettings(0f);
+            
         }
         else
         {
